@@ -5,6 +5,8 @@ import Contact from './components/contact';
 import Home from './components/home';
 import BookList from './components/BookList';
 import Book from './components/Book';
+import NewBook from './components/NewBook';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -24,11 +26,14 @@ function App() {
           </li>
         </ul>
         <Routes>
-          <Route exact path='/' element={< Home />}></Route>
-          <Route exact path='/about' element={< About />}></Route>
-          <Route exact path='/contact' element={< Contact />}></Route>
-          <Route exact path='/books' element={< BookList />}></Route>
-          <Route exact path='/books/id' element={< Book />}></Route>
+          <Route path='/' element={< Home />}></Route>
+          <Route path='/about' element={< About />}></Route>
+          <Route path='/contact' element={< Contact />}></Route>
+          <Route path='/books' element={< BookList />}>
+            <Route path=':id' element={< Book />}></Route>
+            <Route path='new' element={<NewBook />}>New Book</Route>
+          </Route>
+          <Route path='*' element={<NotFound />}>No Route</Route>
         </Routes>
 
     </div>
