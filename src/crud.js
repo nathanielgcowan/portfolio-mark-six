@@ -13,7 +13,8 @@ export default function Crud() {
             isChecked: false,
             gender: '',
             price: 0
-        }
+        },
+        formState: false
     })
 
     const handleChange = e => {
@@ -29,21 +30,63 @@ export default function Crud() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        state.array.push(state.obj)
+        if (state.formState === false) {
+            setState({
+            ...state,
+                obj: {
+                    id: Math.max(state.obj.id) + 1,
+                    fname: '',
+                    lname: '',
+                    message: '',
+                    carBrand: '',
+                    isChecked: false,
+                    gender: '',
+                    price: 0
+                },
+                formState: false
+            });
+            state.array.push(state.obj)
+        } else {
+            setState({
+            ...state,
+                obj: {
+                    id: state.obj.id,
+                    fname: state.obj.fname,
+                    lname: state.obj.lname,
+                    message: state.obj.message,
+                    carBrand: state.obj.carBrand,
+                    isChecked: state.isChecked,
+                    gender: state.gender,
+                    price: state.price
+                },
+                formState: false
+            });
+            state.array.map(e => {
+                if (e.id === state.obj.id) {
+                    console.log(`Object ${e.id} State ${state.obj.id}`)
+                }
+            })
+        }
+        clearState();
+    }
+
+    function clearState() {
         setState({
             ...state,
-            obj: {
-                id: Math.max(state.obj.id) + 1,
-                fname: '',
-                lname: '',
-                message: '',
-                carBrand: '',
-                isChecked: false,
-                gender: '',
-                price: 0
-            }
-        })
+                obj: {
+                    id: 0,
+                    fname: '',
+                    lname: '',
+                    message: '',
+                    carBrand: '',
+                    isChecked: '',
+                    gender: '',
+                    price: ''
+                },
+                formState: !state.formState
+            });
     }
+    console.log(state.formState)
 
     return (
         <div>
@@ -165,15 +208,16 @@ export default function Crud() {
                             ...state,
                             obj: {
                                 id: e.id,
-                                fname: '',
-                                lname: '',
-                                message: '',
-                                carBrand: '',
+                                fname: e.fname,
+                                lname: e.lname,
+                                message: e.message,
+                                carBrand: e.carBrand,
                                 isChecked: false,
-                                gender: '',
+                                gender: e.gender,
                                 price: 0
-                            }
-                        })}>Select</button>
+                            },
+                            formState: true
+                        })}>Select</button><br />
                     </>
                 )
                 })
