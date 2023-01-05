@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import uuid from 'react-uuid'
 
 export default function Crud() {
@@ -17,7 +17,7 @@ export default function Crud() {
         formState: false
     })
 
-    const handleChange = e => {
+    function handleChange(e) {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
         setState({
             ...state,
@@ -86,7 +86,6 @@ export default function Crud() {
                 formState: !state.formState
             });
     }
-    console.log(state.formState)
 
     return (
         <div>
