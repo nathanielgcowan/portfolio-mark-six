@@ -4,7 +4,7 @@ export default function NewBook() {
 
     return (
         <>
-            <h1>New Book</h1>
+            <h1>Book</h1>e
         </>
     )
 }

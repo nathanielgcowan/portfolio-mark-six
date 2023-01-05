@@ -5,6 +5,7 @@ import { BookRoutes } from './BookRoutes';
 import NotFound from '../components/NotFound';
 import About from '../components/About';
 import Contact from '../components/contact';
+import Crud from '../crud';
 
 export default function ForApp() {
     let element = useRoutes([
@@ -27,6 +28,10 @@ export default function ForApp() {
         {
           path: '*',
           element: <NotFound />
+        },
+        {
+          path: '/crud',
+          element: <Crud />
         }
       ])
   return (
