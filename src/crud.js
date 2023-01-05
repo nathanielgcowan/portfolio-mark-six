@@ -30,7 +30,6 @@ export default function Crud() {
     const handleSubmit = e => {
         e.preventDefault();
         state.array.push(state.obj)
-        console.log(state)
         setState({
             ...state,
             obj: {
@@ -47,7 +46,7 @@ export default function Crud() {
     }
 
     return (
-        <>
+        <div>
             <div>
                 <h1>React Form Handling</h1>
                 <form onSubmit={handleSubmit}>
@@ -142,6 +141,7 @@ export default function Crud() {
                     <button type='submit'>Submit</button>
                 </form>
                 <br />
+                <h5>{state.obj.id}</h5>
                 <h5>Name: {state.obj.fname} {state.obj.lname}</h5>
                 <h5>My favorite car brand: {state.obj.carBrand}</h5>
                 <p>Message: {state.obj.message}</p>
@@ -151,35 +151,33 @@ export default function Crud() {
                 <h5>Gender Selected : {state.obj.gender}</h5>
                 <h5>Price: ${state.obj.price}</h5>
             </div>
-            <table>
-            <tr>
-                <th>Car Brand</th>
-                <th>First Name</th>
-                <th>Gender</th>
-                <th>ID</th>
-                <th>Its is checked?</th>
-                <th>Last Name</th>
-                <th>Message</th>
-                <th>Price</th>
-            </tr>
-            <td>
-                { state.array.map(e => {
-                        return (
-                            <li key={uuid()}>
-                                <>{e.carBrand}</>{" "}
-                                <>{e.fname}</>{" "}
-                                <>{e.gender}</>{" "}
-                                <>{e.id}</>{" "}
-                                <>{e.isChecked}</>{" "}
-                                <>{e.lname}</>{" "}
-                                <>{e.message}</>{" "}
-                                <>{e.price}</>
-                            </li>
-                        )
-                    }) 
-                }
-            </td>
-            </table>
-        </>
+            { state.array.map(e => {
+                return (
+                    <>
+                        <label>Car Brand: {e.carBrand}</label>{" "}
+                        <label>First Name: {e.fname}</label>{" "}
+                        <label>Gender: {e.gender}</label>{" "}
+                        <label>Id: {e.id}</label>{" "}
+                        <label>Is Checked: {e.isChecked}</label>{" "}
+                        <label>Message: {e.message}</label>{" "}
+                        <label>Price: {e.price}</label>{" "}<br />{" "}
+                        <button onClick={() => setState({
+                            ...state,
+                            obj: {
+                                id: e.id,
+                                fname: '',
+                                lname: '',
+                                message: '',
+                                carBrand: '',
+                                isChecked: false,
+                                gender: '',
+                                price: 0
+                            }
+                        })}>Select</button>
+                    </>
+                )
+                })
+            }
+        </div>
     )
 }
