@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import BookList from './components/BookList';
-import Book from './components/Book';
-import NewBook from './components/NewBook';
-import BookLayout from './BookLayout';
+import BookList from '../components/BookList';
+import Book from '../components/Book';
+import NewBook from '../components/NewBook';
+import BookLayout from '../layouts/BookLayout';
 
 export function BookRoutes() {
     return (
         <>
-            <BookLayout />
+            {/* <BookLayout /> */}
             <Routes>
                 <Route element={<BookLayout />}>
                     <Route index element={<BookList />} />
