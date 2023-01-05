@@ -14,7 +14,7 @@ export default function Crud() {
             gender: '',
             price: 0
         },
-        formState: false
+        formState: 'new'
     })
 
     function handleChange(e) {
@@ -30,11 +30,11 @@ export default function Crud() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (state.formState === false) {
+        if (state.formState === 'new') {
             setState({
             ...state,
                 obj: {
-                    id: Math.max(state.obj.id) + 1,
+                    id: 4,
                     fname: '',
                     lname: '',
                     message: '',
@@ -42,32 +42,25 @@ export default function Crud() {
                     isChecked: false,
                     gender: '',
                     price: 0
-                },
-                formState: false
+                }
             });
-            state.array.push(state.obj)
+            state.array.push(state.obj);
+            clearState();
         } else {
             setState({
-            ...state,
-                obj: {
-                    id: state.obj.id,
-                    fname: state.obj.fname,
-                    lname: state.obj.lname,
-                    message: state.obj.message,
-                    carBrand: state.obj.carBrand,
-                    isChecked: state.isChecked,
-                    gender: state.gender,
-                    price: state.price
-                },
-                formState: false
-            });
-            state.array.map(e => {
-                if (e.id === state.obj.id) {
-                    console.log(`Object ${e.id} State ${state.obj.id}`)
-                }
-            })
+                ...state,
+                    obj: {
+                        id: state.obj.id,
+                        fname: state.obj.fname,
+                        lname: '',
+                        message: '',
+                        carBrand: '',
+                        isChecked: false,
+                        gender: '',
+                        price: 0
+                    }
+             });
         }
-        clearState();
     }
 
     function clearState() {
@@ -83,14 +76,16 @@ export default function Crud() {
                     gender: '',
                     price: ''
                 },
-                formState: !state.formState
+                formState: 'new'
             });
     }
-
+console.log(state.formState)
     return (
         <div>
             <div>
                 <h1>React Form Handling</h1>
+                { state.formState }
+                { console.log(state.array) }
                 <form onSubmit={handleSubmit}>
                     <label>
                         First Name:{" "} 
@@ -215,7 +210,7 @@ export default function Crud() {
                                 gender: e.gender,
                                 price: 0
                             },
-                            formState: true
+                            formState: 'edit'
                         })}>Select</button><br />
                     </>
                 )
