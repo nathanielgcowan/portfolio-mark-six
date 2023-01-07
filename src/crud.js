@@ -8,7 +8,8 @@ export default function Crud() {
       id: 0,
       name: ''
     },
-    array: []
+    array: [],
+    process: true
   })
 
   function handleChange(e) {
@@ -23,36 +24,81 @@ export default function Crud() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    handleCreate();
+    if (state.object.id === 0) {
+      handleCreate();
+    } else {
+      handleUpdate()
+    }
+    if (state.process) {
+      console.log('true')
+    } else {
+      console.log('false')
+    }
+  }
+  function handleCreate() {
     setState({
       ...state,
-      array: [...state.array, { ...state.object, id: Date.now() }]
+      array: [...state.array, { ...state.object, id: Date.now() }],
+      process: !state.process
     })
-    console.log('handleSubmit')
+  }
+  function handleUpdate() {
+    setState({
+      ...state,
+      array: state.array.map(e => {
+        if (e.id === state.object.id) {
+          return state.object
+        } else {
+          return e
+        }
+      }),
+      process: !state.process
+    })
   }
   function handleDelete() {
     setState({
       ...state,
       array: state.array.filter(e => {
-        return e.id != state.object.id
+        return e.id !== state.object.id
       })
     })
   }
-  console.log(state)
+  function clearFields() {
+    setState({
+      ...state,
+      object: {
+        id: 0,
+        name: ''
+      }
+    })
+  }
+  
   return (
     <>
-      <form onSubmit={e => handleSubmit(e)}>
+      <br />
+      <form onSubmit={e => handleSubmit(e) }>
         <input type='text' name='name'
           value={state.object.name}
           onChange={e => {handleChange(e)}} />
-        <button type='submit'>Submit</button>
+          <button type='submit'>{
+            (state.object.id === 0) ? 'Submit' : 'Update'
+          }</button>
       </form>
       <button onClick={handleDelete}>Delete</button>
-      { state.array.map(e => { 
+      <button onClick={clearFields}>Clear</button>
+      <br />
+      { state.array.map((e,i) => { 
         return ( 
-          <>
+          <p key={i}>
             {e.id}
-            <button onClick={() => setState({...state, object: {...e}})}>Select</button>
-          </>
+            {" "}
+            {e.name}
+            <button onClick={() => 
+              setState({...state, object: {...e}})}>
+                Select
+            </button>
+          </p>
         )})}
     </>
   )
