@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 
@@ -9,9 +9,18 @@ export default function Crud() {
       name: ''
     },
     array: [],
-    process: true
+    process: false
   })
+  useEffect(() => {
+    if (state.process) {
+      console.log('its working')
+      setState({...state, object: { id: 0, name: '' }, process: !state.process });
+    }
+  }, [state]);
 
+  function selectItem(e) {
+    setState({...state, object: {...e}})
+  }
   function handleChange(e) {
     setState({
       ...state,
@@ -21,27 +30,16 @@ export default function Crud() {
       }
     })
   }
-
   function handleSubmit(e) {
     e.preventDefault();
-    handleCreate();
-    if (state.object.id === 0) {
-      handleCreate();
-    } else {
-      handleUpdate()
-    }
-    if (state.process) {
-      console.log('true')
-    } else {
-      console.log('false')
-    }
+    (state.object.id === 0) ? handleCreate() : handleUpdate()
   }
   function handleCreate() {
     setState({
       ...state,
       array: [...state.array, { ...state.object, id: Date.now() }],
-      process: !state.process
-    })
+      process: true
+    });
   }
   function handleUpdate() {
     setState({
@@ -53,7 +51,7 @@ export default function Crud() {
           return e
         }
       }),
-      process: !state.process
+      process: true
     })
   }
   function handleDelete() {
@@ -61,7 +59,8 @@ export default function Crud() {
       ...state,
       array: state.array.filter(e => {
         return e.id !== state.object.id
-      })
+      }),
+      process: true
     })
   }
   function clearFields() {
@@ -89,17 +88,10 @@ export default function Crud() {
       <button onClick={clearFields}>Clear</button>
       <br />
       { state.array.map((e,i) => { 
-        return ( 
-          <p key={i}>
-            {e.id}
-            {" "}
-            {e.name}
-            <button onClick={() => 
-              setState({...state, object: {...e}})}>
-                Select
-            </button>
-          </p>
-        )})}
+        return (
+          <p key={i}>{e.id}{" "}{e.name}
+            <button onClick={() => setState({...state, object: {...e} }) }>Select</button>
+          </p> )}) }
     </>
   )
 }
