@@ -1,4 +1,3 @@
-import { BookRoutes } from './routes/BookRoutes';
 import ForApp from './routes/ForApp';
 import NavLinkBars from './linkbars/NavLinkBars';
 

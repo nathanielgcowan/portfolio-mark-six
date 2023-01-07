@@ -1,10 +1,10 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
-import Home from '../components/home';
+import Home from '../components/lower/home';
 import { BookRoutes } from './BookRoutes';
-import NotFound from '../components/NotFound';
-import About from '../components/About';
-import Contact from '../components/contact';
+import NotFound from '../components/lower/NotFound';
+import About from '../components/lower/About';
+import Contact from '../components/lower/contact';
 import Crud from '../crud';
 
 export default function ForApp() {

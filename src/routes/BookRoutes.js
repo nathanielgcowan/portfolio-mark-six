@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import BookList from '../components/BookList';
-import Book from '../components/Book';
-import NewBook from '../components/NewBook';
+import BookList from '../components/lower/BookList';
+import Book from '../components/lower/Book';
+import NewBook from '../components/lower/NewBook';
 import BookLayout from '../layouts/BookLayout';
-import NotFound from '../components/NotFound';
+import NotFound from '../components/lower/NotFound';
 
 export function BookRoutes() {
     return (
